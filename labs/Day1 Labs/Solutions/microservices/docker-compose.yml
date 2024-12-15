@@ -1,0 +1,62 @@
+version: '3'
+services:
+  service_a_sync:
+    build: ./service_a_sync
+    ports:
+      - '3000:3000'
+    depends_on:
+      - service_b_sync
+    networks:
+      - sync-network
+
+  service_b_sync:
+    build: ./service_b_sync
+    ports:
+      - '3001:3001'
+    networks:
+      - sync-network
+
+  service_a_async:
+    build: ./service_a_async
+    ports:
+      - '4000:4000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
+    networks:
+      - async-network
+
+  service_b_async:
+    build: ./service_b_async
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
+    networks:
+      - async-network
+
+  service_c_hybrid:
+    build: ./service_c_hybrid
+    ports:
+      - '5000:5000'
+    depends_on:
+      - service_b_sync
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
+    networks:
+      - sync-network
+      - async-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672' # RabbitMQ Management UI
+    networks:
+      - async-network
+
+networks:
+  sync-network:
+  async-network:
