@@ -1,6 +1,6 @@
 // App.js
 import React, { useEffect, useState } from 'react';
-import { Container, Alert } from 'reactstrap';
+import { Container, Typography, Alert } from '@mui/material';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -13,8 +13,8 @@ function App() {
 
   return (
     <Container className="mt-5">
-      <Alert variant="success">
-        <h1>{message}</h1>
+      <Alert severity="success" sx={{ mb: 3 }}>
+        <Typography variant="h4">{message}</Typography>
       </Alert>
     </Container>
   );

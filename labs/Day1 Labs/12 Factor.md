@@ -82,11 +82,11 @@ cd ..
 npx create-react-app frontend
 ```
 
-Install React Bootstrap:
+Install Material UI:
 
 ```bash
 cd frontend
-npm install react-bootstrap bootstrap
+npm install @mui/material @emotion/react @emotion/styled
 ```
 
 Update `src/App.js` at `12factor/frontend/src/App.js`:
@@ -94,8 +94,7 @@ Update `src/App.js` at `12factor/frontend/src/App.js`:
 ```javascript
 // App.js
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Alert } from 'react-bootstrap';
+import { Container, Typography, Alert } from '@mui/material';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -108,8 +107,8 @@ function App() {
 
   return (
     <Container className="mt-5">
-      <Alert variant="success">
-        <h1>{message}</h1>
+      <Alert severity="success" sx={{ mb: 3 }}>
+        <Typography variant="h4">{message}</Typography>
       </Alert>
     </Container>
   );
