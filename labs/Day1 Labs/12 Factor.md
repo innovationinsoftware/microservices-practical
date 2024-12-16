@@ -228,7 +228,7 @@ networks:
 From the root directory, start the application:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 **Explanation:**
@@ -281,7 +281,7 @@ app.listen(port, () => {
 Rebuild and run the containers:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 **Explanation:**
@@ -302,8 +302,8 @@ The applications already output logs to the console.
 Test stopping and starting the containers:
 
 ```bash
-docker-compose down
-docker-compose up
+docker compose down
+docker compose up
 ```
 
 **Explanation:**
