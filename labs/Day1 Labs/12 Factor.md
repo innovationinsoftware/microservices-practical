@@ -185,7 +185,6 @@ CMD [ "npm", "start" ]
 In the root `12factor` directory, create `docker-compose.yml` at `12factor/docker-compose.yml`:
 
 ```yaml
-version: '3'
 services:
   backend:
     build: ./backend
