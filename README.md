@@ -2,6 +2,9 @@
 
 This site includes the labs for the Microservices Architecture Principles and Practices class.
 
+## Content   
+[Day1](Microservices-Day1.pdf)   
+
 ## Labs
 [Access VMs](labs/lab-info.md/)   
 Lab 1: [Exploring microservices](labs/day1/microservices.md)   
