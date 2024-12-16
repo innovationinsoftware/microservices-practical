@@ -551,18 +551,6 @@ docker compose up -d
   Hybrid service received: Hello from Service B (Sync) and sent async message
   ```
 
-- **Check Service B (Async) Logs:**
-
-  ```bash
-  docker compose logs service_b_async
-  ```
-
-- **Expected Log Output:**
-
-  ```
-  service_b_async_1  | Received message: Hello from Service C (Hybrid)
-  ```
-
 This demonstrates that Service C successfully uses both synchronous and asynchronous methods.
 
 #### 10. Clean Up
