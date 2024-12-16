@@ -387,10 +387,10 @@ networks:
 From the root directory, build and start the containers:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
-**Note:** Use `docker-compose down` to stop the services when finished.
+**Note:** Use `docker compose down` to stop the services when finished.
 
 #### 6. Test Synchronous Communication
 
@@ -425,7 +425,7 @@ This shows that Service A synchronously calls Service B and waits for the respon
 - **Check Service B (Async) Logs:**
 
   ```bash
-  docker-compose logs service_b_async
+  docker compose logs service_b_async
   ```
 
 - **Expected Log Output:**
@@ -559,7 +559,7 @@ This service will use both synchronous and asynchronous communication.
 - **Check Service B (Async) Logs:**
 
   ```bash
-  docker-compose logs service_b_async
+  docker compose logs service_b_async
   ```
 
 - **Expected Log Output:**
@@ -575,7 +575,7 @@ This demonstrates that Service C successfully uses both synchronous and asynchro
 When finished, stop and remove the containers:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Conclusion
@@ -591,7 +591,7 @@ You've built microservices demonstrating synchronous, asynchronous, and hybrid c
 ### Tips
 
 - **RabbitMQ Management UI:** Access it at `http://localhost:15672` with username `guest` and password `guest`.
-- **Logs:** Use `docker-compose logs [service_name]` to troubleshoot issues.
+- **Logs:** Use `docker compose logs [service_name]` to troubleshoot issues.
 - **Extensibility:** Try adding more services or expanding functionality to deepen your understanding.
 
 ---
