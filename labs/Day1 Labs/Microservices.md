@@ -434,7 +434,6 @@ This service will use both synchronous and asynchronous communication.
 - Navigate back and create the directory:
 
   ```bash
-  cd ../
   mkdir service_c_hybrid
   cd service_c_hybrid
   ```
