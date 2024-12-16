@@ -530,6 +530,13 @@ This service will use both synchronous and asynchronous communication.
         - async-network
   ```
 
+##### 8.2. Start Service C
+
+From the root directory, start microservice c:
+
+```bash
+docker compose up
+```
 #### 9. Test Hybrid Communication
 
 - **Send a Request to Service C (Hybrid):**
