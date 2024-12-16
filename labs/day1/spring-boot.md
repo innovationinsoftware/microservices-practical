@@ -1,4 +1,4 @@
-\*### Exercise: Setting Up and Using Spring Cloud Tools in a Spring Boot Project
+### Exercise: Setting Up and Using Spring Cloud Tools in a Spring Boot Project
 
 #### Prerequisites:
 
