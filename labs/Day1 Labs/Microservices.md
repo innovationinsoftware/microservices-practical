@@ -535,7 +535,7 @@ This service will use both synchronous and asynchronous communication.
 From the root directory, start microservice c:
 
 ```bash
-docker compose up
+docker compose up -d
 ```
 #### 9. Test Hybrid Communication
 
