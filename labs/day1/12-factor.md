@@ -295,6 +295,7 @@ app.listen(port, () => {
 Rebuild and run the containers:
 
 ```bash
+cd ..
 docker compose up --build
 ```
 
