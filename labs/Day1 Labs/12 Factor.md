@@ -87,6 +87,7 @@ npx create-react-app frontend
 Install Material UI:
 
 ```bash
+mkdir frontend
 cd frontend
 npm install
 npm install @mui/material @emotion/react @emotion/styled
