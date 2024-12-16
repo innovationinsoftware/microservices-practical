@@ -422,17 +422,6 @@ This shows that Service A synchronously calls Service B and waits for the respon
   Message sent to Service B (Async)
   ```
 
-- **Check Service B (Async) Logs:**
-
-  ```bash
-  docker compose logs service_b_async
-  ```
-
-- **Expected Log Output:**
-
-  ```
-  service_b_async_1  | Received message: Hello from Service A (Async)
-  ```
 
 This demonstrates that messages are sent to a queue and processed asynchronously by Service B.
 
