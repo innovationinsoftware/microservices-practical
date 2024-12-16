@@ -19,6 +19,22 @@ To access the Windows VMs, please go to [Inspired Portal](https://html.inspiredv
 
 # Access the Linux lab VMs
 
+| First Name | Last Name     | VM              |
+|------------|---------------|-----------------|
+| Marko      | Durovic       | 3.101.108.21    |
+| Prasun     | Sharma        | 13.56.181.172   |
+| Preeti     | Shinde        | 184.169.196.243 |
+| Brick      | DuBose        | 54.177.28.166   |
+| Paul       | Drehs         | 52.53.247.31    |
+| Brandon    | Ballenger     | 54.183.250.6    |
+| Srikanth   | Reddemynam    | 54.193.121.34   |
+| Cam        | Arrowood      | 54.193.204.17   |
+| Miles      | Flanagan      | 3.101.107.222   |
+| Surendra   | Bhandari      | 54.241.232.226  |
+| Sairam     | Nalla         | 13.56.237.90    |
+| Neville    | Masese        | 54.151.20.250   |
+|            |               | 204.236.139.86  |
+
 # Lab Setup
 To connect to the lab VMs, you must authenticate using an SSH key. Download the keys from [here](https://github.com/innovationinsoftware/microservices-practical/raw/refs/heads/main/keys.zip). Once the download is complete, extract the zip file where it is easily accessible.
 
