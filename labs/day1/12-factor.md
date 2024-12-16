@@ -296,7 +296,7 @@ Rebuild and run the containers:
 
 ```bash
 cd ..
-docker compose up --build
+docker compose up --build -d
 ```
 
 **Explanation:**
@@ -318,7 +318,7 @@ Test stopping and starting the containers:
 
 ```bash
 docker compose down
-docker compose up
+docker compose up -d
 ```
 
 **Explanation:**
