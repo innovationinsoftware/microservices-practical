@@ -173,10 +173,10 @@ This service will handle requests from Service A.
 
 This service will send messages to a RabbitMQ queue.
 
-- Navigate back and create the directory:
+- Navigate back to the project root and create the directory:
 
   ```bash
-  cd ../../
+  cd ../
   mkdir service_a_async
   cd service_a_async
   ```

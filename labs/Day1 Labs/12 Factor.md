@@ -82,10 +82,13 @@ cd ..
 npx create-react-app frontend
 ```
 
+**If you get an npm install error, ignore it and continue to the next step**
+
 Install Material UI:
 
 ```bash
 cd frontend
+npm install
 npm install @mui/material @emotion/react @emotion/styled
 ```
 
