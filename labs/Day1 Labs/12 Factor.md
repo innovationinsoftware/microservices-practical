@@ -143,29 +143,6 @@ Add a proxy in `12factor/frontend/package.json`
 
 #### 4. Dockerize the Applications
 
-Create a `Dockerfile` for the backend at `12factor/backend/Dockerfile`:
-
-```dockerfile
-# Use official Node.js LTS image
-FROM node:14
-
-# Set the working directory
-WORKDIR /app
-
-# Install app dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy app source code
-COPY . .
-
-# Expose the port
-EXPOSE 3001
-
-# Start the application
-CMD [ "npm", "start" ]
-```
-
 Create a `Dockerfile` for the frontend at `12factor/frontend/Dockerfile`:
 
 ```dockerfile
@@ -184,6 +161,29 @@ COPY . .
 
 # Expose the port
 EXPOSE 3000
+
+# Start the application
+CMD [ "npm", "start" ]
+```
+
+Create a `Dockerfile` for the backend at `12factor/backend/Dockerfile`:
+
+```dockerfile
+# Use official Node.js LTS image
+FROM node:14
+
+# Set the working directory
+WORKDIR /app
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy app source code
+COPY . .
+
+# Expose the port
+EXPOSE 3001
 
 # Start the application
 CMD [ "npm", "start" ]
