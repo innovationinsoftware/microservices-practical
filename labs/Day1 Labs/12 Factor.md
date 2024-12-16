@@ -55,7 +55,7 @@ app.listen(port, () => {
 });
 ```
 
-Add a start script and proxy to `package.json` at `12factor/backend/package.json`:
+Add a start script to `package.json` at `12factor/backend/package.json`:
 
 ```json
 {
@@ -64,15 +64,6 @@ Add a start script and proxy to `package.json` at `12factor/backend/package.json
     "start": "node index.js"
   },
   // ...existing code...
-}
-{
-"development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "proxy": "http://backend:3001" // ADD THIS CODE
 }
 ```
 
@@ -98,7 +89,7 @@ Install Material UI:
 ```bash
 cd frontend
 npm install
-npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled web-vitals
 ```
 
 Update `src/App.js` at `12factor/frontend/src/App.js`:
@@ -127,6 +118,21 @@ function App() {
 }
 
 export default App;
+```
+
+Add a proxy in `12factor/frontend/package.json`
+
+```json
+{
+  // ...existing code...
+   "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }, // ADD COMMA
+   "proxy": "http://backend:3001" // ADD THIS LINE
+}
 ```
 
 **Explanation:**
@@ -236,7 +242,7 @@ networks:
 From the root directory, start the application:
 
 ```bash
-docker compose up
+docker compose up -d 
 ```
 
 **Explanation:**
@@ -246,7 +252,7 @@ docker compose up
 
 #### 7. Access the Application
 
-Open your browser and navigate to `http://localhost:3000`. You should see the message from the backend displayed in the frontend.
+Open your browser and navigate to `http://<<IP FROM SPREADSHEET>>:3000`. You should see the message from the backend displayed in the frontend.
 
 **Explanation:**
 
