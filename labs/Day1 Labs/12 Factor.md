@@ -35,7 +35,7 @@ npm init -y
 Install Express.js:
 
 ```bash
-npm install express
+npm install express web-vitals
 ```
 
 Create the `index.js` file at `12factor/backend/index.js`:
@@ -55,7 +55,7 @@ app.listen(port, () => {
 });
 ```
 
-Add a start script to `package.json` at `12factor/backend/package.json`:
+Add a start script and proxy to `package.json` at `12factor/backend/package.json`:
 
 ```json
 {
@@ -64,6 +64,15 @@ Add a start script to `package.json` at `12factor/backend/package.json`:
     "start": "node index.js"
   },
   // ...existing code...
+}
+{
+"development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://backend:3001" // ADD THIS CODE
 }
 ```
 
