@@ -94,7 +94,9 @@ Create a free GitHub account if you do not already have one. https://github.com/
 #### Step 8: Create a New Spring Boot Project
 
 1. **Generate a Spring Boot Project:**
+
    - In VS Code add the Spring Initializr extension and Press `Ctrl + Shift + P` to open command palette. Type `Spring Initializr` to start generating a project.
+
    - Select the following options:
      - **Spring Boot:** 3.4 or higher
      - **Language:** Java
@@ -113,20 +115,80 @@ Create a free GitHub account if you do not already have one. https://github.com/
        - OpenFeign
        - Gateway
        - Prometheus
+       - Spring Reactive Web
+       - Prometheus
+
+
 2. **Generate the project files:**
    - Hit ENTER and select a folder to save the project in.
    - Choose **Open** to add it to VSCode workspace.
 
-#### Step 9: Set Up Spring Cloud Config Server
+3. **Check Dependencies in `pom.xml`:**
+   - Open the `pom.xml` file and check if contains the following dependencies:
+  ```xml
+  	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway-mvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-micrometer</artifactId>
+		</dependency>
+	</dependencies>
+  ```
+  
+
+#### Step 9: Set Up Spring Cloud Config Server
 1. **Create a New Spring Boot Project for Config Server:**
    - Repeat the steps above to generate a new Spring Boot project for the Config Server.
    - Enter `spring-config-server` for the Artifact Id
    - Add the following dependencies:
      - Spring Web
      - Spring Cloud Config Server
-2. **Configure the Config Server:**
-   - Open `src/main/resources/application.yml` and add the following configuration:
+2. After creating the project, open it in VSCode
+
+3. **Configure the Config Server:**
+   - Open or create a new file at the following path `src/main/resources/application.yml` and add the following configuration:
      ```yaml
      server:
        port: 8888
@@ -138,7 +200,9 @@ Create a free GitHub account if you do not already have one. https://github.com/
                uri: https://github.com/your-repo/config-repo
                clone-on-start: true
      ```
-3. **Enable Config Server:**
+     
+
+4. **Enable Config Server:**
 
    - Open `src/main/java/com/example/configserver/ConfigServerApplication.java` and add the `@EnableConfigServer` annotation:
 
@@ -158,7 +222,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
      }
      ```
 
-4. **Create Configuration Repository:**
+5. **Create Configuration Repository:**
 
    - Create a new Git repository (e.g., `config-repo`) and add configuration files for different environments.
    - Example `https://github.com/your-repo/config-repo/application.yml`:
@@ -174,7 +238,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
          config:
            server:
              git:
-               uri: https://github.com/drimkoe/config-repo
+               uri: https://github.com/your-repo/config-repo
                clone-on-start: true
      ```
 
@@ -209,7 +273,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
      </dependency>
      ```
 2. **Configure the Client Application:**
-   - Open `src/main/resources/application.properties` and add the following configuration:
+   - Open or create a new file at the following path `src/main/resources/application.properties` and add the following configuration:
      ```yaml
      spring.application.name=spring-cloud-demo
      spring.config.import=configserver:http://localhost:8888
@@ -416,49 +480,34 @@ Create a free GitHub account if you do not already have one. https://github.com/
 
 #### Step 6: Set Up Spring Cloud Gateway
 
-Create a new Spring Boot project for your gateway with artifactId: *spring-cloud-gateway*. You can use [Spring Initializr](https://start.spring.io/) or your IDE to generate the project.
+Following the same instructions to `Step 1`, Create a new Spring Boot project for your gateway with artifactId: *spring-cloud-gateway*. You can use [Spring Initializr](https://start.spring.io/) or the VS Code Spring Initializr extension to generate the project.
 
 #### **Add Dependencies**
 
-Include the following dependencies in your 
-
-pom.xml:
+Include the following dependencies in your `pom.xml`:
 
 ```xml
-<dependencies>
-    <!-- Spring Cloud Gateway -->
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-gateway</artifactId>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
 
-    <!-- Spring Boot WebFlux for Reactive Support -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-    </dependency>
-
-    <!-- Spring Cloud Config Client (if needed) -->
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-config</artifactId>
-    </dependency>
-
-    <!-- Optional: Eureka Client (if using service discovery) -->
-    <!--
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
-    -->
-
-    <!-- Spring Boot Starter Test -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 ```
 
 Make sure to manage Spring Cloud dependencies by adding the Spring Cloud BOM:
