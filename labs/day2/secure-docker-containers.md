@@ -2,6 +2,8 @@
 
 In this tutorial, we'll enhance the security of your Docker containers and configurations using Docker Compose and a secret manager. We'll cover best practices for securing APIs, protecting API keys, and using standard security frameworks.
 
+## **Complete the lab on the Linux VM**
+
 ### Overview
 
 - **Concepts Covered:**
@@ -21,9 +23,22 @@ In this tutorial, we'll enhance the security of your Docker containers and confi
 
 ### Steps
 
-- Create a new directory `Labs/Day2/Solutions/Lab2/`
-- Copy the files from `Labs/Day2/Solutions/Lab1/` into the new directory
-  
+**SSH to the Linux lab VM**
+
+
+
+Ensure you have the latest lab files. 
+
+* If not already done, clone the lab repository
+
+* ```
+  cd $HOME 
+  git clone https://github.com/innovationinsoftware/microservices-practical.git
+  ```
+
+* If you have cloned the repository and want the latest files, `cd` to the lab directory (most likely `cd $HOME/microservices-practical`)
+
+- Enter the lab directory: `cd $HOME/microservices-practical/labs/day2/solutions/lab2/`
 #### 1. Secure Docker Containers
 
 ##### 1.1. Use Non-Root User
@@ -32,17 +47,13 @@ Running containers as a non-root user is a best practice to minimize security ri
 
 **Backend Dockerfile:**
 
-Update the backend `Labs/Day2/Solutions/Lab2/backend/Dockerfile` to use a non-root user.
+Confirm the backend `Dockerfile` uses a non-root user.
 
 ```dockerfile
 
 
 # Use official Node.js LTS image
 FROM node:18
-
-# Create and use a non-root user
-RUN useradd -ms /bin/bash appuser
-USER appuser
 
 # Set the working directory
 WORKDIR /app
@@ -53,6 +64,10 @@ RUN npm install
 
 # Copy app source code
 COPY . .
+
+# Create and use a non-root user
+RUN useradd -ms /bin/bash appuser
+USER appuser
 
 # Expose the port
 EXPOSE 3001
@@ -63,17 +78,13 @@ CMD [ "npm", "start" ]
 
 **Frontend Dockerfile:**
 
-Update the frontend Dockerfile to use a non-root user.
+Confirm the frontend `Dockerfile` uses a non-root user.
 
 ```dockerfile
 
 
 # Use official Node.js LTS image
 FROM node:18
-
-# Create and use a non-root user
-RUN useradd -ms /bin/bash appuser
-USER appuser
 
 # Set the working directory
 WORKDIR /app
@@ -84,6 +95,10 @@ RUN npm install
 
 # Copy app source code
 COPY . .
+
+# Create and use a non-root user
+RUN useradd -ms /bin/bash appuser
+USER appuser
 
 # Expose the port
 EXPOSE 3000
@@ -120,7 +135,7 @@ const port = process.env.PORT || 3001;
 
 // Configure session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Replace with a secure secret
+  secret: process.env.SESSION_SECRET, 
   resave: false,
   saveUninitialized: true,
 }));
@@ -230,25 +245,19 @@ Store API keys and other sensitive information using Docker secrets.
 
 **Create Secrets:**
 
+Create secrets replacing the values below with your OAuth app's **Client ID** and **Client secret**
+
 ```bash
 docker swarm init
 echo "your-google-client-id" | docker secret create google_client_id -
 echo "your-google-client-secret" | docker secret create google_client_secret -
-echo "your-session-secret" | docker secret create session_secret -
 ```
 
 **Update Docker Compose:**
 
-Update 
-
-docker-compose.yml
-
- to use Docker secrets.
+Update `docker-compose.yml` to use Docker secrets.
 
 ```yaml
-
-
-version: '3.7'
 services:
   backend:
     build: ./backend
@@ -260,7 +269,6 @@ services:
     secrets:
       - google_client_id
       - google_client_secret
-      - session_secret
     volumes:
       - ./backend:/app
     networks:
@@ -282,8 +290,6 @@ secrets:
     external: true
   google_client_secret:
     external: true
-  session_secret:
-    external: true
 
 networks:
   app-network:
@@ -304,7 +310,6 @@ const fs = require('fs');
 // Read secrets from Docker secrets files
 const GOOGLE_CLIENT_ID = fs.readFileSync('/run/secrets/google_client_id', 'utf8').trim();
 const GOOGLE_CLIENT_SECRET = fs.readFileSync('/run/secrets/google_client_secret', 'utf8').trim();
-const SESSION_SECRET = fs.readFileSync('/run/secrets/session_secret', 'utf8').trim();
 
 require('dotenv').config();
 const express = require('express');
@@ -316,13 +321,6 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
 const port = process.env.PORT || 3001;
-
-// Configure session middleware
-app.use(session({
-  secret: SESSION_SECRET, // Replace with a secure secret
-  resave: false,
-  saveUninitialized: true,
-}));
 
 // Initialize Passport.js
 app.use(passport.initialize());
@@ -429,6 +427,16 @@ app.use(limiter);
 
 **Concept:** Rate limiting helps prevent abuse and denial-of-service attacks.
 
+
+
+In the `frontend` directory, Install `react-scripts`
+
+```
+npm install react-scripts
+```
+
+
+
 ---
 
 ## Testing the Secured Docker Containers and Configurations
@@ -442,7 +450,7 @@ After making the necessary changes to secure your Docker containers and configur
 Navigate to the root directory of your project and use Docker Compose to build and start the containers.
 
 ```bash
-cd "Labs/Day2/Solutions/Lab 2"
+cd "labs/day2/solutions/lab2/"
 docker-compose build
 ```
 
@@ -592,7 +600,7 @@ docker network myapp_inspect app-network
 You can verify the frontend service's published ports with:
 
 ```bash
-docker service inspect myapp_frontend --format '{{json .Endpoint.Ports}}'
+docker service inspect myapp_frontend --format '{{json .Endpoint.Ports}}' | jq
 ```
 
 The output should confirm port 3000 is exposed. For example:
@@ -608,47 +616,6 @@ The output should confirm port 3000 is exposed. For example:
 ```
 
 If you don't see PublishedPort, the service isn’t exposing the port correctly.
-
----
-
-#### 7. Test OAuth Authentication
-
-1. **Login with Google:**
-   - Click the **Login with Google** button.
-   - Complete the Google OAuth authentication flow.
-   - Verify that you are redirected back to the frontend and see a personalized greeting message.
-
-2. **Logout:**
-   - Click the **Logout** button.
-   - Verify that you are logged out and see the login prompt again.
-
-**Concept:** OAuth authentication ensures that only authenticated users can access protected resources.
-
-#### 5. Verify API Rate Limiting
-
-1. **Send Multiple Requests:**
-   - Open a terminal or use a tool like Postman to send multiple requests to the `/api` endpoint.
-   - Example using `curl`:
-     ```bash
-     curl -i -X GET http://localhost:3001/api
-     ```
-
-2. **Check Rate Limiting:**
-   - Send more than 5 requests within a minute.
-   - Verify that the server responds with a `429 Too Many Requests` status code after exceeding the rate limit.
-
-**Concept:** Rate limiting helps prevent abuse and denial-of-service attacks by limiting the number of requests from a single IP address.
-
-#### 8. Verify Security Headers with Helmet
-
-1. **Inspect HTTP Headers:**
-   - Open the browser's developer tools (F12) and navigate to the **Network** tab.
-   - Refresh the page and inspect the HTTP headers of the requests.
-
-2. **Check Security Headers:**
-   - Verify that security headers like `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, and `Strict-Transport-Security` are present.
-
-**Concept:** Security headers help protect your application from common web vulnerabilities.
 
 
 ### Summary

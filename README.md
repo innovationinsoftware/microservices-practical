@@ -14,4 +14,5 @@ Lab 1: [Exploring microservices](labs/day1/microservices.md)
 Lab 2: [12 Factor](labs/day1/12-factor.md)   
 
 ## Day 2
-Lab 3: [Authentication with OAuth](labs/day2/oauth.md)   
+Lab 3: [Authenticate with OAuth](labs/day2/oauth.md)   
+Lab 4: [Docker security](labs/day2/secure-docker-containers.md)   
