@@ -77,7 +77,7 @@ If you have cloned the repository and want the latest files, `cd` to the lab dir
 Enter the cloned lab solution directory and navigate to your backend directory:
 
 ```bash
-cd "labs/day2/solutions/lab1/backend"
+cd "/c/labs/microservices-practical/labs/day2/solutions/lab1/backend"
 ```
 
 Install the required packages:
