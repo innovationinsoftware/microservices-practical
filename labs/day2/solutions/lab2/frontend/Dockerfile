@@ -11,12 +11,12 @@ RUN npm install
 # Copy app source code
 COPY . .
 
-# Expose the port
-EXPOSE 3000
-
 # Create and use a non-root user
 RUN useradd -ms /bin/bash appuser
 USER appuser
+
+# Expose the port
+EXPOSE 3000
 
 # Start the application
 CMD [ "npm", "start" ]
