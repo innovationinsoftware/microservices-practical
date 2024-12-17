@@ -6,33 +6,105 @@
 - Java Development Kit (JDK) installed (version 8 or higher).
 - Integrated Development Environment (IDE) such as IntelliJ IDEA, Eclipse, or VS Code.
 - Git installed for version control.  
+- GitHub account 
+- Chocolatey installed
+
+## Launch VS Code in Administrator Mode to Install software in a Terminal window
+
+### Step 1: Run VS Code as Administrator
+1. Close any open instances of Visual Studio Code.
+2. Search for "Visual Studio Code" in the Start menu.
+3. Right-click on it and select **Run as Administrator**.
+   - If prompted by User Account Control (UAC), click **Yes** to allow it.
+
+---
+### **Step 2: Open the Integrated Terminal**
+1. In VS Code, click on the **Terminal** menu at the top and select **New Terminal**.
+   - Alternatively, use the shortcut: `Ctrl + ~` (Windows/Linux) or `Cmd + ~` (Mac).
+2. Ensure the terminal is using **PowerShell**, as Chocolatey requires it.
+
+---
+
+### **Step 3: Set Execution Policy**
+1. Check the current execution policy by running:
+   ```powershell
+   Get-ExecutionPolicy
+   ```
+2. If the policy is not `AllSigned` or `Bypass`, set it to `Bypass` temporarily:
+   ```powershell
+   Set-ExecutionPolicy Bypass -Scope Process -Force
+   ```
+
+---
+
+## Install Chocolatey
+
+### **Step 4: Install Chocolatey**
+1. Run the following command in the terminal:
+   ```powershell
+   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+   ```
+2. Wait for the script to complete. Chocolatey will be installed on your system.
+
+3. Close Visual Studio Code
+
+---
+
+### **Step 5: Verify the Installation**
+1. Reopen Visual Studio Code
+
+2. Test that Chocolatey is installed by running:
+   ```powershell
+   choco --version
+   ```
+   - This should display the installed version of Chocolatey.
+
+---
+
+### **Step 6: Use Chocolatey to install required packages**
+1. Run the following to install OpenJDK:
+   ```powershell
+   choco install openjdk git -y
+   ```
+2. If you're prompted to run installation scripts choose 'a' for "All"
+
+3. Close Visual Studio Code
+ 
+4. Reopen Visual Studio Code
+
+5. After installation, confirm that the packages were installed:
+
+   ```powershell
+   java --version
+   git --version
+   ```
+
+---
+
+### **Important Note:**
+Always remember to run VS Code in **Administrator mode** whenever you need to use Chocolatey for installing or managing software that requires system-level changes.
 
 
-#### Step 1: Set Up the Development Environment
 
-1. **Install Java Development Kit (JDK):**
-   - Download and install JDK from [Oracle's official website](https://www.oracle.com/java/technologies/javase-downloads.html) or [OpenJDK](https://openjdk.java.net/install/).
-   - Verify the installation by running `java -version` in the terminal.
-2. **Install an Integrated Development Environment (IDE):**
-   - Download and install IntelliJ IDEA from [JetBrains](https://www.jetbrains.com/idea/download/), Eclipse from [Eclipse Foundation](https://www.eclipse.org/downloads/), or VS Code from [Microsoft](https://code.visualstudio.com/).
-3. **Install Git:**
-   - Download and install Git from [git-scm.com](https://git-scm.com/).
-   - Verify the installation by running `git --version` in the terminal.
+#### Step 7: Create a GitHub account 
+Create a GitHub account
+Create a free GitHub account if you do not already have one. https://github.com/join
 
-#### Step 2: Create a New Spring Boot Project
+
+#### Step 8: Create a New Spring Boot Project
 
 1. **Generate a Spring Boot Project:**
-   - Go to [Spring Initializr](https://start.spring.io/) to create a new project. Alternatively, in VS Code you can add the Spring Initializr Java Support extensions and Press `Ctrl + Shift + P` to open command palette. Type `Spring Initializr` to start generating a Maven or Gradle project.
+
+   - In VS Code add the Spring Initializr extension and Press `Ctrl + Shift + P` to open command palette. Type `Spring Initializr` to start generating a project.
+
    - Select the following options:
-     - **Project:** Maven Project
+     - **Spring Boot:** 3.4 or higher
      - **Language:** Java
-     - **Spring Boot:** 2.5.x or higher
      - **Project Metadata:**
-       - **Group:** com.example
+       - **Group Id:** com.example
        - **Artifact:** spring-cloud-demo
-       - **Name:** Spring Cloud Demo
-       - **Package Name:** com.example.springclouddemo
-       - **Packaging:** Jar
+       - **Artifact Id:** com.example.springclouddemo
+       - **Package type:** Jar
        - **Java:** 23 or higher
      - **Dependencies:**
        - Spring Web
@@ -42,14 +114,16 @@
        - Resilience4J
        - OpenFeign
        - Gateway
+       - Prometheus
        - Spring Reactive Web
        - Prometheus
-2. **Download the Project:**
-   - Click on "Generate" to download the project as a ZIP file.
-   - Extract the ZIP file to a directory of your choice.
-3. **Open the Project in Your IDE:**
-   - Open your IDE and select "Open" or "Import" to open the extracted project directory.
-4. **Check Dependencies in `pom.xml`:**
+
+
+2. **Generate the project files:**
+   - Hit ENTER and select a folder to save the project in.
+   - Choose **Open** to add it to VSCode workspace.
+
+3. **Check Dependencies in `pom.xml`:**
    - Open the `pom.xml` file and check if contains the following dependencies:
   ```xml
   	<dependencies>
@@ -102,16 +176,18 @@
 		</dependency>
 	</dependencies>
   ```
+  
 
-#### Step 3: Set Up Spring Cloud Config Server
-
+#### Step 9: Set Up Spring Cloud Config Server
 1. **Create a New Spring Boot Project for Config Server:**
    - Repeat the steps above to generate a new Spring Boot project for the Config Server.
    - Enter `spring-config-server` for the Artifact Id
    - Add the following dependencies:
      - Spring Web
      - Spring Cloud Config Server
-2. **Configure the Config Server:**
+2. After creating the project, open it in VSCode
+
+3. **Configure the Config Server:**
    - Open or create a new file at the following path `src/main/resources/application.yml` and add the following configuration:
      ```yaml
      server:
@@ -124,7 +200,9 @@
                uri: https://github.com/your-repo/config-repo
                clone-on-start: true
      ```
-3. **Enable Config Server:**
+     
+
+4. **Enable Config Server:**
 
    - Open `src/main/java/com/example/configserver/ConfigServerApplication.java` and add the `@EnableConfigServer` annotation:
 
@@ -144,7 +222,7 @@
      }
      ```
 
-4. **Create Configuration Repository:**
+5. **Create Configuration Repository:**
 
    - Create a new Git repository (e.g., `config-repo`) and add configuration files for different environments.
    - Example `https://github.com/your-repo/config-repo/application.yml`:
@@ -160,7 +238,7 @@
          config:
            server:
              git:
-               uri: https://github.com/drimkoe/config-repo
+               uri: https://github.com/your-repo/config-repo
                clone-on-start: true
      ```
 
