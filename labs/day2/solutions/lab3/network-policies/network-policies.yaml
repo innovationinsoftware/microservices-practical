@@ -1,0 +1,44 @@
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-service-a-sync
+spec:
+  podSelector:
+    matchLabels:
+      app: service-a-sync
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: service-b-sync
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: service-b-sync
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-service-a-async
+spec:
+  podSelector:
+    matchLabels:
+      app: service-a-async
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: service-b-async
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: service-b-async
