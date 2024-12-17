@@ -25,7 +25,7 @@ To access the Windows VMs, please go to [Inspired Portal](https://html.inspiredv
 | Prasun     | Sharma        | 13.56.181.172   |
 | Preeti     | Shinde        | 184.169.196.243 |
 | Brick      | DuBose        | 54.177.28.166   |
-| Paul       | Drehs         | 52.53.247.31    |
+| Paul       | Drehs         | 3.101.104.227   |
 | Brandon    | Ballenger     | 54.183.250.6    |
 | Srikanth   | Reddemynam    | 54.193.121.34   |
 | Cam        | Arrowood      | 54.193.204.17   |
