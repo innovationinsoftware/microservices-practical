@@ -1,0 +1,59 @@
+version: '3'
+services:
+  service_a_sync:
+    build: ./service_a_sync
+    ports:
+      - '5000:5000'
+    depends_on:
+      - service_b_sync
+    networks:
+      - sync-network
+    environment:
+      - GOOGLE_CLIENT_ID=413488060014-38dgb8m72jfj6vspgqp6ddo2rq1dah16.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
+      - SESSION_SECRET=secret
+
+  service_b_sync:
+    build: ./service_b_sync
+    ports:
+      - '5001:5001'
+    networks:
+      - sync-network
+    environment:
+      - GOOGLE_CLIENT_ID=413488060014-38dgb8m72jfj6vspgqp6ddo2rq1dah16.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
+      - SESSION_SECRET=secret
+  service_a_async:
+    build: ./service_a_async
+    ports:
+      - '4000:4000'
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
+      - GOOGLE_CLIENT_ID=413488060014-38dgb8m72jfj6vspgqp6ddo2rq1dah16.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
+      - SESSION_SECRET=secret
+    networks:
+      - async-network
+  service_b_async:
+    build: ./service_b_async
+    depends_on:
+      - rabbitmq
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
+      - GOOGLE_CLIENT_ID=413488060014-38dgb8m72jfj6vspgqp6ddo2rq1dah16.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
+      - SESSION_SECRET=secret
+    networks:
+      - async-network
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672' # RabbitMQ Management UI
+    networks:
+      - async-network
+networks:
+  sync-network:
+  async-network:

@@ -1,0 +1,16 @@
+FROM node:14
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY .env .env
+COPY . .
+
+ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+ENV GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+ENV SESSION_SECRET=${SESSION_SECRET}
+ENV AMQP_URL=${AMQP_URL}
+
+CMD [ "node", "index.js" ]
