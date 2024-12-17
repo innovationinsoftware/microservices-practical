@@ -37,7 +37,7 @@
 
 ---
 
-## Install Chocolatey
+### Install Chocolatey
 
 ### **Step 4: Install Chocolatey**
 1. Run the following command in the terminal:
@@ -69,7 +69,7 @@
 2. If you're prompted to run installation scripts choose 'a' for "All"
 
 3. Close Visual Studio Code
- 
+
 4. Reopen Visual Studio Code
 
 5. After installation, confirm that the packages were installed:
@@ -86,17 +86,16 @@ Always remember to run VS Code in **Administrator mode** whenever you need to us
 
 
 
-#### Step 7: Create a GitHub account 
-Create a GitHub account
+### Step 7: Create a GitHub account 
+
 Create a free GitHub account if you do not already have one. https://github.com/join
 
 
-#### Step 8: Create a New Spring Boot Project
+### Step 8: Create a New Spring Boot Project
 
 1. **Generate a Spring Boot Project:**
 
    - In VS Code add the Spring Initializr extension and Press `Ctrl + Shift + P` to open command palette. Type `Spring Initializr` to start generating a project.
-
    - Select the following options:
      - **Spring Boot:** 3.4 or higher
      - **Language:** Java
@@ -114,14 +113,13 @@ Create a free GitHub account if you do not already have one. https://github.com/
        - Resilience4J
        - OpenFeign
        - Gateway
-       - Prometheus
        - Spring Reactive Web
        - Prometheus
 
 
 2. **Generate the project files:**
    - Hit ENTER and select a folder to save the project in.
-   - Choose **Open** to add it to VSCode workspace.
+   - Choose **Add to Workspace** to add it to VSCode workspace.
 
 3. **Check Dependencies in `pom.xml`:**
    - Open the `pom.xml` file and check if contains the following dependencies:
@@ -176,16 +174,16 @@ Create a free GitHub account if you do not already have one. https://github.com/
 		</dependency>
 	</dependencies>
   ```
-  
 
-#### Step 9: Set Up Spring Cloud Config Server
+
+### Step 9: Set Up Spring Cloud Config Server
 1. **Create a New Spring Boot Project for Config Server:**
    - Repeat the steps above to generate a new Spring Boot project for the Config Server.
    - Enter `spring-config-server` for the Artifact Id
    - Add the following dependencies:
      - Spring Web
      - Spring Cloud Config Server
-2. After creating the project, open it in VSCode
+2. After creating the project, Add to Workspace in in VSCode
 
 3. **Configure the Config Server:**
    - Open or create a new file at the following path `src/main/resources/application.yml` and add the following configuration:
@@ -204,15 +202,15 @@ Create a free GitHub account if you do not already have one. https://github.com/
 
 4. **Enable Config Server:**
 
-   - Open `src/main/java/com/example/configserver/ConfigServerApplication.java` and add the `@EnableConfigServer` annotation:
+   - Open `src/main/java/com/example/spring_config_server/SpringConfigServerApplication.java` and add the `@EnableConfigServer` annotation. Update the file with the following: 
 
      ```java
      package com.example.configserver;
-
+  
      import org.springframework.boot.SpringApplication;
      import org.springframework.boot.autoconfigure.SpringBootApplication;
      import org.springframework.cloud.config.server.EnableConfigServer;
-
+  
      @SpringBootApplication
      @EnableConfigServer
      public class ConfigServerApplication {
@@ -262,7 +260,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
        password: prodpass
    ```
 
-#### Step 4: Configure Spring Cloud Config Client
+### Step 10: Configure Spring Cloud Config Client
 
 1. **Add Config Client Dependency:**
    - Open `pom.xml` in the Spring Cloud Demo project and add the following dependency if it's not already added:
@@ -280,21 +278,23 @@ Create a free GitHub account if you do not already have one. https://github.com/
      ```
 3. **Create a REST Controller to Fetch Configuration:**
 
-   - Open `src/main/java/com/example/spring_cloud_demo/controller/ConfigController.java` and add the following code:
+   - Create the `controller` folder at ``src/main/java/com/example/spring_cloud_demo/controller`
 
+   - Open or create `src/main/java/com/example/spring_cloud_demo/controller/ConfigController.java` and add the following code:
+   
      ```java
      package com.example.spring_cloud_demo.controller;
-
+     
      import org.springframework.beans.factory.annotation.Value;
      import org.springframework.web.bind.annotation.GetMapping;
      import org.springframework.web.bind.annotation.RestController;
-
+     
      @RestController
      public class ConfigController {
-
+     
          @Value("${spring.datasource.url}")
          private String datasourceUrl;
-
+     
          @GetMapping("/config")
          public String getConfig() {
              return "Datasource URL: " + datasourceUrl;
@@ -302,10 +302,11 @@ Create a free GitHub account if you do not already have one. https://github.com/
      }
      ```
 
-#### Step 5: Set Up Spring Cloud Circuit Breaker
+### Step 11: Set Up Spring Cloud Circuit Breaker
 
 1. **Add Circuit Breaker Dependency:**
-   - Open `spring-cloud-demo/pom.xml` and add the following dependency:
+   
+   - Open `spring-cloud-demo/pom.xml` and add the following if it's not already added:
      ```xml
      	<dependency>
         <groupId>org.springframework.cloud</groupId>
@@ -318,15 +319,15 @@ Create a free GitHub account if you do not already have one. https://github.com/
      ```
 2. **Enable Circuit Breaker:**
 
-   - Open `src/main/java/com/example/springclouddemo/SpringCloudDemoApplication.java` and define a `Customizer<ReactiveResilience4JCircuitBreakerFactory>` bean to customize the default configuration of the circuit breakers
+   - Open `src/main/java/com/example/spring_cloud_demo/SpringCloudDemoApplication.java` and define a `Customizer<ReactiveResilience4JCircuitBreakerFactory>` bean to customize the default configuration of the circuit breakers
 
      ```java
       package com.example.spring_cloud_demo;
-
+  
       import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
       import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
       import io.github.resilience4j.timelimiter.TimeLimiterConfig;
-
+  
       import java.time.Duration;
       import org.springframework.boot.SpringApplication;
       import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -335,19 +336,19 @@ Create a free GitHub account if you do not already have one. https://github.com/
       import org.springframework.cloud.client.circuitbreaker.Customizer;
       import org.springframework.context.annotation.Bean;
       import org.springframework.web.reactive.function.client.WebClient;
-
+  
       @SpringBootApplication
       public class SpringCloudDemoApplication {
-
+  
           public static void main(String[] args) {
               SpringApplication.run(SpringCloudDemoApplication.class, args);
           }
-
+  
           @Bean
           public WebClient.Builder webClientBuilder() {
               return WebClient.builder();
           }
-
+  
           @Bean
           public Customizer<ReactiveResilience4JCircuitBreakerFactory> defaultCustomizer() {
               return factory -> {
@@ -371,10 +372,10 @@ Create a free GitHub account if you do not already have one. https://github.com/
 
      ```java
         package com.example.spring_cloud_demo.service;
-
+  
         import reactor.core.publisher.Flux;
         import reactor.core.publisher.Mono;
-
+  
         import java.time.Duration;
         import java.util.Arrays;
         import java.util.List;
@@ -382,34 +383,34 @@ Create a free GitHub account if you do not already have one. https://github.com/
         import java.util.HashMap;
         import java.util.function.Supplier;
         import org.springframework.stereotype.Service;
-
+  
         @Service
         public class MockStudentService {
-
+  
             private List<Map<String, String>> students = Arrays.asList(
                 Map.of("id", "1", "name", "John Doe", "course", "Computer Science"),
                 Map.of("id", "2", "name", "Jane Smith", "course", "Mathematics"),
                 Map.of("id", "3", "name", "Sam Brown", "course", "Physics")
             );
-
+  
             public Flux<Map<String, String>> getAllStudents() {
                 return Flux.fromIterable(students);
             }
-
+  
             public Mono<Map<String, String>> getStudentById(String id) {
                 return Mono.justOrEmpty(students.stream()
                     .filter(student -> student.get("id").equals(id))
                     .findFirst());
             }
-
+  
             public Mono<Map<String, String>> getStudentByIdWithDelay(String id, int seconds) {
                 return getStudentById(id).delayElement(Duration.ofSeconds(seconds));
             }
-
+  
             public Supplier<Mono<Map<String, String>>> getStudentByIdSupplier(String id, int seconds) {
                 return () -> this.getStudentByIdWithDelay(id, seconds);
             }
-
+  
             public Flux<Map<String, String>> getAllStudentsWithDelay(int seconds) {
                 return Flux.fromIterable(students).delayElements(Duration.ofSeconds(seconds));
             }
@@ -422,10 +423,10 @@ Create a free GitHub account if you do not already have one. https://github.com/
 
      ```java
       package com.example.spring_cloud_demo.controller;
-
+     
       import reactor.core.publisher.Flux;
       import reactor.core.publisher.Mono;
-
+     
       import java.util.HashMap;
       import java.util.Map;
       import org.slf4j.Logger;
@@ -435,25 +436,25 @@ Create a free GitHub account if you do not already have one. https://github.com/
       import org.springframework.web.bind.annotation.PathVariable;
       import org.springframework.web.bind.annotation.RestController;
       import com.example.spring_cloud_demo.service.MockStudentService;
-
+     
       @RestController
       public class MockStudentController {
-
+     
           Logger LOG = LoggerFactory.getLogger(MockStudentController.class);
-
+     
           private ReactiveCircuitBreakerFactory circuitBreakerFactory;
           private MockStudentService mockStudentService;
-
+     
           public MockStudentController(ReactiveCircuitBreakerFactory circuitBreakerFactory, MockStudentService mockStudentService) {
               this.circuitBreakerFactory = circuitBreakerFactory;
               this.mockStudentService = mockStudentService;
           }
-
+     
           @GetMapping("/students")
           public Flux<Map<String, String>> getAllStudents() {
               return mockStudentService.getAllStudents();
           }
-
+     
           @GetMapping("/students/{id}")
           public Mono<Map<String, String>> getStudentById(@PathVariable String id) {
               return circuitBreakerFactory.create("getStudentById").run(mockStudentService.getStudentById(id), t -> {
@@ -465,7 +466,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
                   return Mono.just(fallback);
               });
           }
-
+     
           @GetMapping("/students/delay/{seconds}")
           public Flux<Map<String, String>> getAllStudentsWithDelay(@PathVariable int seconds) {
               return circuitBreakerFactory.create("getAllStudentsWithDelay").run(mockStudentService.getAllStudentsWithDelay(seconds), t -> {
@@ -478,7 +479,7 @@ Create a free GitHub account if you do not already have one. https://github.com/
       }
      ```
 
-#### Step 6: Set Up Spring Cloud Gateway
+### Step 12: Set Up Spring Cloud Gateway
 
 Following the same instructions to `Step 1`, Create a new Spring Boot project for your gateway with artifactId: *spring-cloud-gateway*. You can use [Spring Initializr](https://start.spring.io/) or the VS Code Spring Initializr extension to generate the project.
 
@@ -533,7 +534,7 @@ Make sure to manage Spring Cloud dependencies by adding the Spring Cloud BOM:
 
 ---
 
-### **Step 2: Configure the Gateway Application**
+### **Step 13: Configure the Gateway Application**
 
 #### **`application.properties` or `application.yml`**
 
@@ -563,7 +564,7 @@ This configuration sets up the gateway on port `8081` and routes any requests ma
 
 ---
 
-### **Step 3: Create the Gateway Application Class**
+### **Step 14: Create the Gateway Application Class**
 
 ```java
 
@@ -654,7 +655,7 @@ public class FallbackController {
 
 ---
 
-#### Step 9: Run and Test the Applications
+### Step 15: Run and Test the Applications
 
 1. **Start the Config Server:**
    - Navigate to the Config Server project directory in the terminal.
