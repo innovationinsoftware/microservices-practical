@@ -28,17 +28,15 @@ In this tutorial, we'll enhance the security of your Docker containers and confi
 
 
 Ensure you have the latest lab files. 
+If not already done, clone the lab repository
+ ```bash
+ cd /c/labs/
+ git clone https://github.com/innovationinsoftware/microservices-practical.git
+ ```
+ If you have cloned the repository and want the latest files, `cd` to the lab directory (most likely `cd /c/labs//microservices-practical`) and run    `git pull`
+ 
+ Enter the lab directory: `cd /c/labs/microservices-practical/labs/day2/solutions/lab2/`
 
-* If not already done, clone the lab repository
-
-* ```
-  cd $HOME 
-  git clone https://github.com/innovationinsoftware/microservices-practical.git
-  ```
-
-* If you have cloned the repository and want the latest files, `cd` to the lab directory (most likely `cd $HOME/microservices-practical`)
-
-- Enter the lab directory: `cd $HOME/microservices-practical/labs/day2/solutions/lab2/`
 #### 1. Secure Docker Containers
 
 ##### 1.1. Use Non-Root User
