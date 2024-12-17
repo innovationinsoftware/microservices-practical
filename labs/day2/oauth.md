@@ -191,6 +191,11 @@ express-session
 
 #### 4. Configure the Frontend
 
+Enter the `frontend` folder
+```
+cd ../frontend
+```
+
 ##### 4.1. Create Environment Variable
 
 Review `frontend/.env`file:
@@ -285,14 +290,14 @@ export default App;
 - **Start the Backend:**
 
   ```bash
-  cd "labs/day2/solutions/lab1/backend"
+  cd "../backend"
   node index.js
   ```
 
 - **Start the Frontend:**
 
   ```bash
-  cd "labs/day2/solutions/lab1/frontend"
+  cd "../frontend"
   npm start
   ```
 

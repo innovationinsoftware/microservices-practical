@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
-const cors = require('cors');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -11,7 +10,7 @@ const port = process.env.PORT || 3001;
 
 // Configure session middleware
 app.use(session({
-  secret: 'your-session-secret', // Replace with a secure secret
+  secret: 'your-session-secret', // REPLACE WITH YOUR CLIENT SECRET
   resave: false,
   saveUninitialized: true,
 }));
@@ -19,12 +18,6 @@ app.use(session({
 // Initialize Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Enable CORS
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
-}));
 
 // Configure Passport.js to use the Google strategy
 passport.use(new GoogleStrategy({
