@@ -68,10 +68,10 @@ After installing `nodejs`, restart VSCode without Admin permissions.
 Ensure you have the latest lab files.
 
 If not already done, clone the lab repository
-
-cd $HOME
+```bash
+cd /c/labs/
 git clone https://github.com/innovationinsoftware/microservices-practical.git
-If you have cloned the repository and want the latest files, cd to the lab directory (most likely cd $HOME/microservices-practical) and run `git pull`
+If you have cloned the repository and want the latest files, cd to the lab directory (most likely cd /c/labs//microservices-practical) and run `git pull`
 
 Enter the cloned lab solution directory and navigate to your backend directory:
 
