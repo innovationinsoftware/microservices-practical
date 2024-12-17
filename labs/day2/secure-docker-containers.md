@@ -221,13 +221,14 @@ Use logging and monitoring tools to track API activity and detect potential secu
 
 Add logging middleware to monitor API requests.
 
-- Open the backend root directory in a terminal `cd Labs\Day2\Solutions\Lab 2\backend`
+- Ensure you're in the `backend` directory in a terminal.
 - Run `npm install morgan`
+
+The `index.js` file has the following to enable logging:
 
 ```javascript
 const morgan = require('morgan');
 
-// Add this near the top of index.js
 app.use(morgan('combined'));
 ```
 
@@ -245,15 +246,16 @@ Store API keys and other sensitive information using Docker secrets.
 
 Create secrets replacing the values below with your OAuth app's **Client ID** and **Client secret**
 
+Run the following one line at a time. NOTE: replaace `your-google-client-id`, and `your-google-client-secret` with the OAuth secrets you created previously. 
 ```bash
 docker swarm init
 echo "your-google-client-id" | docker secret create google_client_id -
 echo "your-google-client-secret" | docker secret create google_client_secret -
 ```
 
-**Update Docker Compose:**
+**Docker Compose:**
 
-Update `docker-compose.yml` to use Docker secrets.
+Confirm `docker-compose.yml` is using Docker secrets.
 
 ```yaml
 services:
@@ -294,9 +296,9 @@ networks:
     driver: bridge
 ```
 
-**Update Backend to Use Secrets:**
+**Backend is configured to Use Secrets:**
 
-Update the backend to read secrets from the Docker secrets files.
+The backend is configured to read secrets from the Docker secrets files.
 
 **Backend `index.js`:**
 
@@ -391,14 +393,13 @@ app.listen(port, () => {
 
 ##### 5.1. Use Helmet for Security Headers
 
-Add Helmet to your Express application to set secure HTTP headers.
+Review `index.js` to see Helmet enables your Express application to set secure HTTP headers.
 
 **Backend `index.js`:**
 
 ```javascript
 const helmet = require('helmet');
 
-// Add this near the top of index.js
 app.use(helmet());
 ```
 
@@ -406,14 +407,13 @@ app.use(helmet());
 
 ##### 5.2. Use Rate Limiting
 
-Add rate limiting to protect your APIs from abuse.
+The following code enables rate limiting to protect your APIs from abuse.
 
 **Backend `index.js`:**
 
 ```javascript
 const rateLimit = require('express-rate-limit');
 
-// Add this near the top of index.js
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 15 minutes
   max: 5, // limit each IP to 5 requests per windowMs
@@ -448,7 +448,7 @@ After making the necessary changes to secure your Docker containers and configur
 Navigate to the root directory of your project and use Docker Compose to build and start the containers.
 
 ```bash
-cd "labs/day2/solutions/lab2/"
+cd "$HOME/microservices-practical/labs/day2/solutions/lab2/"
 docker-compose build
 ```
 
@@ -466,12 +466,11 @@ docker secret ls
 
 **Concept:** Docker secrets provide a secure way to manage sensitive information in your containers.
 
-#### 3. Update docker-compose.yml for Swarm
+#### 3. Ensure docker-compose.yml is configured for Swarm
 
 Ensure your `docker-compose.yml` is configured correctly for Docker Swarm.
 
 ```yaml
-version: '3.7'
 services:
   backend:
     image: backend:latest
@@ -484,7 +483,6 @@ services:
     secrets:
       - google_client_id
       - google_client_secret
-      - session_secret
     volumes:
       - ./backend:/app
     networks:
@@ -521,8 +519,6 @@ secrets:
     external: true
   google_client_secret:
     external: true
-  session_secret:
-    external: true
 
 networks:
   app-network:
@@ -531,13 +527,11 @@ networks:
 
 #### 4. Deploy the Stack
 
-Deploy the stack using the updated `docker-compose.yml` file. For this example, we'll use `myapp` as the stack name:
+Deploy the stack using `docker-compose.yml` file. For this example, we'll use `myapp` as the stack name:
 
 ```bash
 docker stack deploy -c docker-compose.yml myapp
 ```
-
-**Note:** Replace `myapp` with any name you prefer for your stack.
 
 #### 5. Verify the Deployment
 
@@ -548,18 +542,6 @@ docker stack services myapp
 ```
 
 You should see the `backend` and `frontend` services listed with their respective statuses.
-
-
-#### 6. Access the Application
-
-Open your browser and navigate to the frontend application.
-
-```plaintext
-http://localhost:3000
-```
-
-**Concept:** The frontend application should be accessible and ready for user interaction.
-
 
 ---
 If the services are replicated but not running, it could be due to several reasons such as incorrect configurations, missing dependencies, or issues with the Docker secrets. Let's go through a step-by-step process to troubleshoot and resolve the issue.
@@ -575,8 +557,6 @@ docker service logs myapp_backend
 docker service logs myapp_frontend
 ```
 
-Replace `myapp` with your stack name.
-
 ##### 2. Verify Docker Secrets
 
 Ensure that the Docker secrets are correctly created and accessible by the services.
@@ -585,7 +565,7 @@ Ensure that the Docker secrets are correctly created and accessible by the servi
 docker secret ls
 ```
 
-You should see the secrets `google_client_id`, `google_client_secret`, and `session_secret` listed.
+You should see the secrets `google_client_id`, `google_client_secret` listed.
 
 ##### 3. Verify External Access
 

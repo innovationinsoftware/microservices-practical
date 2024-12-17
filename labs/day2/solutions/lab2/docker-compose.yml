@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   backend:
     image: backend:latest
@@ -11,7 +10,6 @@ services:
     secrets:
       - google_client_id
       - google_client_secret
-      - session_secret
     volumes:
       - ./backend:/app
     networks:
@@ -47,8 +45,6 @@ secrets:
   google_client_id:
     external: true
   google_client_secret:
-    external: true
-  session_secret:
     external: true
 
 networks:
