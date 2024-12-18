@@ -5,6 +5,10 @@ We will deploy the guestbook demo application, comprising a Redis leader, follow
 
 
 
+## Run this lab on the Linux VM
+
+
+
 ## Prerequisites 
 
 Ensure you have the latest lab files. If not already done, clone the lab repository:
@@ -135,7 +139,10 @@ redis-leader   ClusterIP   10.107.62.78   <none>        6379/TCP   5m
 redis-follower    ClusterIP   10.98.54.128   <none>        6379/TCP   35s
 ```
 
+
+
 ## Setup and Expose the Guestbook Frontend 
+
 The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the `redis-leader` Service for write requests and the `redis-follower` service for Read requests.
 
 ## Create the Guestbook Frontend Deployment
@@ -188,7 +195,10 @@ redis-leader   ClusterIP   10.107.62.78   <none>        6379/TCP       11m
 redis-follower    ClusterIP   10.98.54.128   <none>        6379/TCP       6m
 ```
 
+
+
 ### Viewing the Frontend Service 
+
 To access the service, we need to create a tunnel from the host to Minikube. 
 
 ```bash 
