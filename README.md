@@ -16,4 +16,7 @@ Lab 2: [12 Factor](labs/day1/12-factor.md)
 ## Day 2
 Lab 3: [Authenticate with OAuth](labs/day2/oauth.md)   
 Lab 4: [Docker security](labs/day2/secure-docker-containers.md)   
+
+## Day 3
 Lab 5: [Kubernetes deployments](labs/day2/kubernetes-deployments.md)   
+Lab 6: [Deploy applications to AKS](labs/day3/guestbook-aks.md)   
