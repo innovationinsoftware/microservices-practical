@@ -10,6 +10,11 @@ We will deploy the guestbook demo application, comprising a Redis leader, follow
 
 
 ## Prerequisites 
+Start the service
+
+```bash
+minikube start
+```
 
 Ensure you have the latest lab files. If not already done, clone the lab repository:
 
