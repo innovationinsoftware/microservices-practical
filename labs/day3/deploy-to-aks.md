@@ -1,4 +1,4 @@
-### Lab Exercise: Deploying the 12-Factor App to Azure AKS Using Azure Container Registry and Converting Backend to Azure Functions
+### Lab Exercise: Deploying the Multi-tier App to Azure AKS Using Azure Container Registry and Converting Backend to Azure Functions
 
 In this lab exercise, you will:
 
