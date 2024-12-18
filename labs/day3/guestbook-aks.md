@@ -21,7 +21,7 @@ export ACR_NAME="YOUR_INITIALSregistry12182024"
 export LOCATION="eastus"
 ```
 
-Note: Replace `YOUR_INITIALS` with your actual initials in the commands above.
+Note: Replace `YOUR_INITIALS` with your actual initials (in lower case) in the commands above.
 
 ## Step 1: Create Project Directory
 
