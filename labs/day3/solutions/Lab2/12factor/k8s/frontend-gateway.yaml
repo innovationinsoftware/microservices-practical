@@ -1,0 +1,15 @@
+# filepath: .../Day3/Solutions/Lab2/12factor/k8s/frontend-gateway.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: frontend-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      protocol: HTTP
+      name: http
+    hosts:
+    - "*"
