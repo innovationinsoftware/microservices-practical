@@ -35,6 +35,26 @@ To access the Windows VMs, please go to [Inspired Portal](https://html.inspiredv
 | Neville    | Masese        | 54.151.20.250   |
 |            |               | 204.236.139.86  |
 
+# Azure credentials
+Please log into the [Azure Portal](http://portal.azure.com) using the credentials below. 
+Username: `<student#>@jasoninnovationinsoftware.com`
+Instructor will provide the password 
+
+| First Name | Last Name     | student number  |
+|------------|---------------|-----------------|
+| Marko      | Durovic       | student1        |
+| Prasun     | Sharma        | student2        |
+| Preeti     | Shinde        | student3        |
+| Brick      | DuBose        | student4        |
+| Paul       | Drehs         | student5        |
+| Brandon    | Ballenger     | student6        |
+| Srikanth   | Reddemynam    | student7        |
+| Cam        | Arrowood      | student8        |
+| Miles      | Flanagan      | student9        |
+| Surendra   | Bhandari      | student10       |
+| Sairam     | Nalla         | student11       |
+| Neville    | Masese        | student12       |
+
 # Lab Setup
 To connect to the lab VMs, you must authenticate using an SSH key. Download the keys from [here](https://github.com/innovationinsoftware/microservices-practical/raw/refs/heads/main/keys.zip). Once the download is complete, extract the zip file where it is easily accessible.
 
