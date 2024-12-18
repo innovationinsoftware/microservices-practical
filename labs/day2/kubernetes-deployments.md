@@ -51,7 +51,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
 Apply the Redis leader deployment file 
 ```
-kubectl apply manifests/redis-leader-deployment.yaml
+kubectl apply -f manifests/redis-leader-deployment.yaml
 ```
 
 Verify the Redis leader is running 
