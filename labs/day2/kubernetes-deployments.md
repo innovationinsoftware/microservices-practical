@@ -60,7 +60,7 @@ NAME                            READY     STATUS    RESTARTS   AGE
 redis-leader-585798d8ff-s9qmr   1/1       Running   0          44s
 ```
 
-Now let’s check the logs 
+Now, let’s check the logs 
 ```
 kubectl logs -f <POD NAME>
 ```
