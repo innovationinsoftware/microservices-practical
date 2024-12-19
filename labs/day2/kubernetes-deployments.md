@@ -10,6 +10,11 @@ We will deploy the guestbook demo application, comprising a Redis leader, follow
 
 
 ## Prerequisites 
+Start the service
+
+```bash
+minikube start
+```
 
 Ensure you have the latest lab files. If not already done, clone the lab repository:
 
@@ -51,7 +56,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 
 Apply the Redis leader deployment file 
 ```
-kubectl apply manifests/redis-leader-deployment.yaml
+kubectl apply -f manifests/redis-leader-deployment.yaml
 ```
 
 Verify the Redis leader is running 

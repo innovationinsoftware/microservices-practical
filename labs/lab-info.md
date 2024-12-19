@@ -38,7 +38,7 @@ To access the Windows VMs, please go to [Inspired Portal](https://html.inspiredv
 
 # Azure credentials
 Please log into the [Azure Portal](http://portal.azure.com) using the credentials below. 
-Username: `<student#>jason@innovationinsoftware.onmicrosoft.com`
+Username: `<student#>@jasoninnovationinsoftware.onmicrosoft.com`
 Instructor will provide the password 
 
 | First Name | Last Name     | student number  |
