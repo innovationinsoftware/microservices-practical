@@ -1,0 +1,16 @@
+{
+  "name": "advanced-unit-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nyc": "^17.1.0"
+  }
+}

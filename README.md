@@ -21,3 +21,8 @@ Lab 4: [Docker security](labs/day2/secure-docker-containers.md)
 ## Day 3
 Lab 5: [Kubernetes deployments](labs/day2/kubernetes-deployments.md)   
 Lab 6: [Deploy applications to AKS](labs/day3/guestbook-aks.md)   
+
+## Day 4
+Lab 7: [Testing microservices](labs/day4/Lab1.md)   
+Lab 8: [Integration testing](labs/day4/Lab2.md)   
+Lab 9: [BDD and end-to-end testing](labs/day4/Lab3.md)   
