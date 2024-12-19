@@ -6,6 +6,7 @@ This site includes the labs for the Microservices Architecture Principles and Pr
 [Day1](Content/Microservices-Day1.pdf)   
 [Day2](Content/Microservices-Day2.pdf)   
 [Day3](Content/Microservices-Day3.pdf)   
+[Day4](Content/Microservices-Day4.pdf)   
 
 ## Labs
 
